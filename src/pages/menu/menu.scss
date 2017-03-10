@@ -1,10 +1,15 @@
+.no-img{
+    background-image: none !important;
+    background-color: #f4f4f4;
+}
 .profile-img{
     width: 80px !important;
     height: 80px !important;
 }
 
-.center{
+.copyright{
     text-align: center;
+    font-size: 1rem;
 }
 
 .divider{
