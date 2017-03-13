@@ -6,6 +6,11 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar por club"></ion-searchbar>
+   <ion-item-group *ngFor="let match of matches">
+    <ion-item-divider color="light">{{ match.place }}</ion-item-divider>
+    <ion-item>{{ match.$key }}</ion-item>
+  </ion-item-group>
 </ion-content>
+
