@@ -29,4 +29,7 @@ export class DbApiService {
     });
   }
 
+  addMatch(match) {
+    this.matches.push({ name: match.name, place: match.place, time: match.time, level: match.level, comment: match.comment});
+  }
 }
