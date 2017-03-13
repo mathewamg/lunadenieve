@@ -1,3 +1,4 @@
+import { AddMatchPage } from './../add-match/add-match';
 import { DbApiService } from './../../shared/db-api.service';
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
@@ -34,5 +35,9 @@ export class HomePage {
       });
     });
 
+  }
+
+  addMatch() {
+    this.navCtrl.push(AddMatchPage);
   }
 }

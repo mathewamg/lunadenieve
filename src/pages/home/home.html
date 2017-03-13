@@ -1,8 +1,8 @@
 <ion-header class="center">
   <ion-navbar color="white">
-    <ion-title>PadelConnect</ion-title>
+    <ion-title>{{title}}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="addMatch()">
         <ion-icon color= "primary" name="add-circle"></ion-icon>
       </button>
     </ion-buttons>
@@ -10,9 +10,18 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let match of model.matches">
-      <ion-label>{{match.$key}}</ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-card *ngFor="let match of model.matches">
+    <img src="https://firebasestorage.googleapis.com/v0/b/lunadenieve-adbde.appspot.com/o/padel1.jpg?alt=media&token=98bbbf79-4c98-469d-8830-394c1b9defce" />
+    <ion-card-content>
+      <ion-card-title>
+        {{match.name}}
+      </ion-card-title>
+      <p>
+        {{match.place}}
+      </p>
+      <p>
+        {{match.time}}
+      </p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
