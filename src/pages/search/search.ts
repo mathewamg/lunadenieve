@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { DbApiService } from './../../shared/db-api.service';
 import * as _ from 'lodash';
 

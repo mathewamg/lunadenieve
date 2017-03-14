@@ -10,8 +10,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let match of model.matches">
-    <img src="{{match.image}}"/>
+  <ion-card *ngFor="let match of matches">
+    <img height="150 px" width="150 px" src="{{match.image}}"/>
     <ion-card-content>
       <ion-card-title>
         {{match.name}}
@@ -20,7 +20,7 @@
         {{match.place}}
       </p>
       <p>
-        {{match.time}}
+        {{match.time | date:'medium' }}
       </p>
     </ion-card-content>
   </ion-card>

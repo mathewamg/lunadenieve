@@ -31,7 +31,7 @@ export class AddMatchPage {
 
   createMatch() {
     //console.log(this.match)
-    this.image = _.sample(['../assets/img/padel1.jpg', '../assets/img/padel2.jpg', '../assets/img/padel3.jpg', '../assets/img/padel4.jpg']);
+    this.image = _.sample(['../assets/img/padel1.jpg', '../assets/img/padel2.jpg', '../assets/img/padel3.jpg', '../assets/img/padel4.jpg', '../assets/img/padel5.jpg']);
     this.DbApiService.addMatch(this.match, this.image);
     let toast = this.toastController.create({
       message: 'Partido creado con éxito',

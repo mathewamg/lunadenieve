@@ -1,4 +1,3 @@
-import { OrderMatches } from './../pipes/order-matches';
 import { AddMatchPage } from './../pages/add-match/add-match';
 import { AngularFireModule, AuthProviders, AuthMethods } from "angularfire2";
 import { DbApiService } from './../shared/db-api.service';
@@ -30,8 +29,7 @@ const myFirebaseAuthConfig = {
     MenuPage,
     HomePage,
     TabsPage,
-    AddMatchPage,
-    OrderMatches
+    AddMatchPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
