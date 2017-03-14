@@ -9,9 +9,9 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-card *ngFor="let match of model.matches">
-    <img src="https://firebasestorage.googleapis.com/v0/b/lunadenieve-adbde.appspot.com/o/padel1.jpg?alt=media&token=98bbbf79-4c98-469d-8830-394c1b9defce" />
+    <img src="{{match.image}}"/>
     <ion-card-content>
       <ion-card-title>
         {{match.name}}

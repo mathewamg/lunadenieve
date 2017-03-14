@@ -13,11 +13,7 @@ export class DbApiService {
     this.matches = this.af.database.list('/matches');
     return this.matches;
   }
-
-//   addItem(tarea) {
-//     this.items.push({ action: tarea, done: false });
-//   }
-
+  
 //   removeItem(id) {
 //     this.items.remove(id);
 //   }
@@ -29,7 +25,7 @@ export class DbApiService {
     });
   }
 
-  addMatch(match) {
-    this.matches.push({ name: match.name, place: match.place, time: match.time, level: match.level, comment: match.comment});
+  addMatch(match, image) {
+    this.matches.push({ name: match.name, place: match.place, time: match.time, level: match.level, comment: match.comment, image: image});
   }
 }

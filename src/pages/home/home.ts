@@ -13,19 +13,13 @@ export class HomePage {
     user: "Alex",
     matches: []
   };
-  
-  constructor(public navCtrl: NavController, private DbApiService: DbApiService, private loadingController: LoadingController) {
 
+  constructor(public navCtrl: NavController, private DbApiService: DbApiService, private loadingController: LoadingController) {
   }
+  
   ionViewDidLoad() {
-    // let toast = this.toastController.create({
-    //   message: 'Para eliminar alguna tarea, deslizar hacia la izquierda',
-    //   position: 'bottom',
-    //   duration: 4000
-    // });
-    // toast.present();
     let loader = this.loadingController.create({
-      content: 'Please wait...'
+      content: 'Por favor espera...'
     });
     loader.present().then(() => {
       this.DbApiService.fireLogin();
