@@ -4,13 +4,20 @@
       Buscador Para Alexander
     </ion-title>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar por club"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar (ionInput)="getItems($event)" placeholder="Buscar por club"></ion-searchbar>
-   <ion-item-group *ngFor="let match of matches">
-    <ion-item-divider color="light">{{ match.place }}</ion-item-divider>
-    <ion-item>{{ match.$key }}</ion-item>
-  </ion-item-group>
+  
+  <ion-list>
+
+    <ion-item-group *ngFor="let places of matches">
+      <ion-item-divider color="light">{{ places.placeName }}</ion-item-divider>
+      <button ion-item *ngFor="let match of places.matchPlaces" >{{ match.name }}</button>
+    </ion-item-group>
+  </ion-list>
 </ion-content>
+
 

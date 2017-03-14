@@ -13,6 +13,7 @@ export class HomePage {
     user: "Alex",
     matches: []
   };
+  
   constructor(public navCtrl: NavController, private DbApiService: DbApiService, private loadingController: LoadingController) {
 
   }
