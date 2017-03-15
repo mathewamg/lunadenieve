@@ -1,4 +1,5 @@
 import { AddMatchPage } from './../pages/add-match/add-match';
+import { ShowMatchPage} from './../pages/show-match/show-match';
 import { AngularFireModule, AuthProviders, AuthMethods } from "angularfire2";
 import { DbApiService } from './../shared/db-api.service';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -29,7 +30,8 @@ const myFirebaseAuthConfig = {
     MenuPage,
     HomePage,
     TabsPage,
-    AddMatchPage
+    AddMatchPage,
+    ShowMatchPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -42,7 +44,8 @@ const myFirebaseAuthConfig = {
     MenuPage,
     HomePage,
     TabsPage,
-    AddMatchPage
+    AddMatchPage,
+    ShowMatchPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, DbApiService]
 })

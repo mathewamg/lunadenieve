@@ -1,3 +1,4 @@
+import { ShowMatchPage} from './../show-match/show-match';
 import { AddMatchPage } from './../add-match/add-match';
 import { DbApiService } from './../../shared/db-api.service';
 import { Component } from '@angular/core';
@@ -36,5 +37,9 @@ export class HomePage {
 
   addMatch() {
     this.navCtrl.push(AddMatchPage);
+  }
+
+  showMatch() {
+    this.navCtrl.push(ShowMatchPage);
   }
 }

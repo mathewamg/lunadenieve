@@ -25,7 +25,7 @@ export class DbApiService {
     });
   }
 
-  addMatch(match, image) {
-    this.matches.push({ name: match.name, place: match.place, time: match.time, level: match.level, comment: match.comment, image: image});
+  addMatch(match, image, longitude, latitude) {
+    this.matches.push({ name: match.name, place: match.place, time: match.time, level: match.level, comment: match.comment, image: image, longitude: longitude, latitude: latitude });
   }
 }
