@@ -5,7 +5,7 @@ page-login {
     }
 
     .loginBox{
-        margin-top: 90%;
+        margin-top: 85%;
     }
 
     ion-item{
@@ -29,5 +29,9 @@ page-login {
     .col-signin{
         padding: 0px 0px 0px 15px !important;
     }
-    
+    .circle-btn{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+    }
 }
