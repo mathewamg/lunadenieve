@@ -22,6 +22,8 @@ export class HomePage {
   }
   
   ionViewDidLoad() {
+    let currentUser = this.DbApiService.getCurrentUser();
+    console.log("Current User is ", currentUser.auth.email);
     let loader = this.loadingController.create({
       content: 'Por favor espera...'
     });

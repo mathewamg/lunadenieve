@@ -1,7 +1,6 @@
 import { DbApiService } from './../../shared/db-api.service';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { LoginPage } from './../login/login';
+import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 
 /*
   Generated class for the SignIn page.
@@ -14,7 +13,8 @@ import { LoginPage } from './../login/login';
   templateUrl: 'sign-in.html'
 })
 export class SignInPage {
-  user: {email: string, username: string, password: string, name: string, surname: string, phone: string, level: string, age: string} = {
+  loader: any;
+  user: { email: string, username: string, password: string, name: string, surname: string, phone: string, level: string, age: string } = {
     email: '',
     username: '',
     password: '',
@@ -24,20 +24,33 @@ export class SignInPage {
     level: '',
     age: ''
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams, private DbApiService: DbApiService, private toastController: ToastController) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, private DbApiService: DbApiService, 
+  private toastController: ToastController, private alertCtrl: AlertController) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignInPage');
   }
 
   createUser() {
-    this.DbApiService.addUser(this.user);
-    let toast = this.toastController.create({
-      message: 'Usuario registrado con éxito',
-      position: 'bottom',
-      duration: 5000
+    this.DbApiService.addUser(this.user).then((authData) => {
+      this.navCtrl.popToRoot();
+      let toast = this.toastController.create({
+        message: 'Usuario registrado con éxito',
+        position: 'bottom',
+        duration: 3000
+      });
+      toast.present();
+    }).catch((error) => {
+      this.showError(error);
     });
-    toast.present();
-    this.navCtrl.push(LoginPage);
+  }
+
+  showError(text) {
+    let prompt = this.alertCtrl.create({
+      title: 'Fail',
+      subTitle: text,
+      buttons: ['OK']
+    });
+    prompt.present();
   }
 }
