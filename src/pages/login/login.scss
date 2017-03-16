@@ -1,3 +1,33 @@
 page-login {
+    ion-content {
+        background-image: url('../assets/img/login.jpg');
+        background-size: cover;
+    }
 
+    .loginBox{
+        margin-top: 90%;
+    }
+
+    ion-item{
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        border-radius: 30px;
+        color:white !important;
+        
+    }
+
+
+    .item.item-trns{
+        border-color: rgba(0, 0, 0, 0.3);
+	    background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    .col-signin{
+        padding: 0px 0px 0px 15px !important;
+    }
+    
 }
