@@ -1,5 +1,7 @@
+import { LoginPage } from './../pages/login/login';
 import { AddMatchPage } from './../pages/add-match/add-match';
 import { ShowMatchPage} from './../pages/show-match/show-match';
+import { SignInPage } from "./../pages/sign-in/sign-in";
 import { AngularFireModule, AuthProviders, AuthMethods } from "angularfire2";
 import { DbApiService } from './../shared/db-api.service';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -31,7 +33,9 @@ const myFirebaseAuthConfig = {
     HomePage,
     TabsPage,
     AddMatchPage,
-    ShowMatchPage
+    ShowMatchPage,
+    SignInPage,
+    LoginPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -45,7 +49,9 @@ const myFirebaseAuthConfig = {
     HomePage,
     TabsPage,
     AddMatchPage,
-    ShowMatchPage
+    ShowMatchPage,
+    SignInPage,
+    LoginPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, DbApiService]
 })
