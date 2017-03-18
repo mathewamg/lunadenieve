@@ -3,13 +3,15 @@
 import { Injectable } from "@angular/core";
 import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from "angularfire2";
 import { Observable } from 'rxjs/Observable';
+import { Platform } from 'ionic-angular';
+import { Facebook } from 'ionic-native';
 
 @Injectable()
 export class DbApiService {
   matches: FirebaseListObservable<any[]>;
   users: FirebaseListObservable<any[]>;
 
-  constructor(private af: AngularFire) {
+  constructor(private af: AngularFire, private platform: Platform) {
     this.af.auth.subscribe(auth => console.log("login: ", auth));
   }
 
@@ -102,6 +104,41 @@ export class DbApiService {
     });
   }
 
+  loginWithFacebook() {
+    return Observable.create(observer => {
+      if (this.platform.is('cordova')) {
+        Facebook.login(['public_profile', 'email']).then(facebookData => {
+          let provider = firebase.auth.FacebookAuthProvider.credential(facebookData.authResponse.accessToken);
+          firebase.auth().signInWithCredential(provider).then(firebaseData => {
+            this.af.database.list('users').update(firebaseData.uid, {
+              name: firebaseData.displayName,
+              email: firebaseData.email,
+              profile_image: firebaseData.photoURL
+            });
+            observer.next();
+          });
+        }, error => {
+          observer.error(error);
+        });
+      } else {
+        this.af.auth.login({
+          provider: AuthProviders.Facebook,
+          method: AuthMethods.Popup
+        }).then((facebookData) => {
+          this.af.database.list('users').update(facebookData.auth.uid, {
+            name: facebookData.auth.displayName,
+            email: facebookData.auth.email,
+            profile_image: facebookData.auth.photoURL
+          });
+          observer.next();
+        }).catch((error) => {
+          console.info("error", error);
+          observer.error(error);
+        });
+      }
+    });
+  }
+
   // fireLogin(credentials) {
   //   return this.af.auth.login({
   //     email: credentials.email,
@@ -109,9 +146,9 @@ export class DbApiService {
   //   });
   // }
 
-   getCurrentUser() {
-     return this.af.auth.getAuth();
-   }
+  getCurrentUser() {
+    return this.af.auth.getAuth();
+  }
 
   fireLogout() {
     this.af.auth.logout();

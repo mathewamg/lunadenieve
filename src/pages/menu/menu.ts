@@ -1,5 +1,5 @@
+import { DbApiService } from './../../shared/db-api.service';
 import { Component } from '@angular/core';
-
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -8,8 +8,14 @@ import { NavController } from 'ionic-angular';
 })
 export class MenuPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private DbApiService: DbApiService) {
 
   }
+
+  //Sólo funciona con facebook
+  getProfileImage() {
+    return this.DbApiService.getCurrentUser().auth.photoURL;
+  }
+
 
 }

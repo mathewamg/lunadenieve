@@ -42,6 +42,14 @@ export class LoginPage {
     });
   }
 
+  loginUserWithFacebook() {
+    this.DbApiService.loginWithFacebook().subscribe(data => {
+      this.navCtrl.setRoot(TabsPage);
+    }, err => {
+      this.showError(err);
+    });
+  }
+
   createAccount() {
     this.navCtrl.push(SignInPage);
   }
