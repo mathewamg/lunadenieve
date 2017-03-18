@@ -1,7 +1,7 @@
 import { DbApiService } from './../../shared/db-api.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-
+import { Camera, CameraOptions } from 'ionic-native';
 /*
   Generated class for the SignIn page.
 
@@ -13,7 +13,7 @@ import { NavController, NavParams, ToastController, AlertController } from 'ioni
   templateUrl: 'sign-in.html'
 })
 export class SignInPage {
-  loader: any;
+  imgSrc: any;
   user: { email: string, username: string, password: string, name: string, surname: string, phone: string, level: string, age: string } = {
     email: '',
     username: '',
@@ -24,11 +24,26 @@ export class SignInPage {
     level: '',
     age: ''
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams, private DbApiService: DbApiService, 
-  private toastController: ToastController, private alertCtrl: AlertController) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, private DbApiService: DbApiService,
+    private toastController: ToastController, private alertCtrl: AlertController) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignInPage');
+  }
+
+  takePicture() {
+    let options: CameraOptions = {
+      destinationType: Camera.DestinationType.FILE_URI,
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      encodingType: Camera.EncodingType.PNG,
+      targetHeight: 500,
+      targetWidth: 500,
+      saveToPhotoAlbum: false
+    };
+
+    Camera.getPicture(options).then((imageUri) => {
+      this.imgSrc = imageUri;
+    });
   }
 
   createUser() {

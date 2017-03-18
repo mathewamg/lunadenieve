@@ -14,7 +14,7 @@
 
 <ion-content>
   <ion-card *ngFor="let match of matches" (click)="showMatch()">
-    <img height="180 px" src="{{match.image}}"/>
+    <img src="{{match.image}}" height="180 px" />
     <ion-card-content>
       <ion-card-title>
         {{match.name}}

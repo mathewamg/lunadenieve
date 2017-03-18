@@ -65,6 +65,12 @@
         </ion-select>
       </ion-item>
 
+      <button ion-button full (click)="takePicture()">Subir foto</button>
+
+      <ion-card *ngIf="imgSrc">
+        <img [src]="imgSrc">
+      </ion-card>
+
       <button ion-button type="submit" block>Aceptar</button>
 
     </ion-list>
