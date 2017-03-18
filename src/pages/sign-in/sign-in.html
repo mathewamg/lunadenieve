@@ -14,42 +14,42 @@
 
 
 <ion-content padding>
-  <form (ngSubmit)="createUser()">
+  <form (ngSubmit)="register()" #signUpForm="ngForm">
     <ion-list>
 
       <ion-item>
         <ion-label fixed>Email</ion-label>
-        <ion-input type="email" [(ngModel)]="user.email" name="email"></ion-input>
+        <ion-input type="email" [(ngModel)]="user.email" name="email" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label fixed>Contraseña</ion-label>
-        <ion-input type="password" [(ngModel)]="user.password" name="password"></ion-input>
+        <ion-input type="password" [(ngModel)]="user.password" name="password" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label fixed>Username</ion-label>
-        <ion-input type="text" [(ngModel)]="user.username" name="username"></ion-input>
+        <ion-input type="text" [(ngModel)]="user.username" name="username" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label fixed>Nombre</ion-label>
-        <ion-input type="text" [(ngModel)]="user.name" name="name"></ion-input>
+        <ion-input type="text" [(ngModel)]="user.name" name="name" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label fixed>Apellidos</ion-label>
-        <ion-input type="text" [(ngModel)]="user.surname" name="surname"></ion-input>
+        <ion-input type="text" [(ngModel)]="user.surname" name="surname" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label fixed>Teléfono</ion-label>
-        <ion-input type="phone" [(ngModel)]="user.phone" name="phone"></ion-input>
+        <ion-input type="phone" [(ngModel)]="user.phone" name="phone" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label fixed>Nivel</ion-label>
-        <ion-select [(ngModel)]="user.level" name="level">
+        <ion-select [(ngModel)]="user.level" name="level" required>
           <ion-option value="Segunda" selected="true">Segunda</ion-option>
           <ion-option value="Tercera">Tercera</ion-option>
           <ion-option value="Cuarta">Cuarta</ion-option>
@@ -58,21 +58,22 @@
 
       <ion-item>
         <ion-label fixed>Edad</ion-label>
-        <ion-select [(ngModel)]="user.age" name="age">
+        <ion-select [(ngModel)]="user.age" name="age" required>
           <ion-option value="Joven" selected="true">Joven</ion-option>
           <ion-option value="Adulto">Adulto</ion-option>
           <ion-option value="Senior">Senior</ion-option>
         </ion-select>
       </ion-item>
 
-      <button ion-button full (click)="takePicture()">Subir foto</button>
+      <!--<button ion-button full (click)="takePicture()">Subir foto</button>
 
       <ion-card *ngIf="imgSrc">
         <img [src]="imgSrc">
-      </ion-card>
-
-      <button ion-button type="submit" block>Aceptar</button>
+      </ion-card>-->
 
     </ion-list>
+
+    <button ion-button block [disabled]="!signUpForm.form.valid">Aceptar</button>
+
   </form>
 </ion-content>

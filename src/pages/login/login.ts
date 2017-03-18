@@ -15,20 +15,21 @@ import { DbApiService } from './../../shared/db-api.service';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  loader: any;
-  credentials: { email: string, password: string } = {
-    email: '',
-    password: ''
+  credentials: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private DbApiService: DbApiService,
+    private toastController: ToastController, private alertCtrl: AlertController) {
+    this.credentials = {
+      email: '',
+      password: ''
+    }
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams, private DbApiService: DbApiService, 
-  private toastController: ToastController, private alertCtrl: AlertController) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
   login() {
-    this.DbApiService.fireLogin(this.credentials).then((authData) => {
+    this.DbApiService.loginWithEmail(this.credentials).subscribe(data => {
       this.navCtrl.setRoot(TabsPage);
       let toast = this.toastController.create({
         message: 'Te has logueado con éxito',
@@ -36,8 +37,8 @@ export class LoginPage {
         duration: 3000
       });
       toast.present();
-    }).catch((error) => {
-      this.showError(error);
+    }, err => {
+      this.showError(err);
     });
   }
 
