@@ -2,7 +2,7 @@
   <div class="loginBox">
     <form (ngSubmit)="login()">
       <ion-row>
-        <ion-col col-9 offset-2>
+        <ion-col col-8 offset-2>
             <ion-item no-lines class="item item-trns">
               <ion-label color="white"><ion-icon name="person"></ion-icon></ion-label>
               <ion-input type="email" placeholder="Email" name="email" [(ngModel)]="credentials.email" required></ion-input>
@@ -10,7 +10,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-9 offset-2>
+        <ion-col col-8 offset-2>
             <ion-item no-lines class="item item-trns">
               <ion-label color="white"><ion-icon name="key"></ion-icon></ion-label>
               <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="credentials.password" required></ion-input>
@@ -22,9 +22,8 @@
               <a color="white" href="">Olvidaste tu contraseña?</a>
         </ion-col>
       </ion-row>
-      
       <ion-row>
-        <ion-col col-9 offset-2 no-padding>
+        <ion-col col-8 offset-2 no-padding>
           <button ion-button full type="submit">Entrar</button>
         </ion-col>
       </ion-row>
@@ -32,7 +31,7 @@
         <ion-col col-5 offset-2 no-padding>
           <p no-margin color="white">Condiciones de uso</p>
         </ion-col>
-        <ion-col col-3 offset-1 class="col-signin">
+        <ion-col col-3 offset-1 no-padding>
           <p no-margin color="white" (click)="createAccount()">Registrate</p>
         </ion-col>
       </ion-row>
