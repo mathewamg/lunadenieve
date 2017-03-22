@@ -29,10 +29,10 @@ export class DbApiService {
     return this.users;
   }
 
-  addMatch(match, image, longitude, latitude) {
+  addMatch(match, image, longitude, latitude, members) {
     this.matches.push({
       name: match.name, place: match.place, time: match.time, level: match.level,
-      comment: match.comment, image: image, longitude: longitude, latitude: latitude
+      comment: match.comment, image: image, longitude: longitude, latitude: latitude, members: members
     });
   }
 
