@@ -10,6 +10,10 @@ import { Facebook } from 'ionic-native';
 export class DbApiService {
   matches: FirebaseListObservable<any[]>;
   users: FirebaseListObservable<any[]>;
+  members: FirebaseListObservable<any[]>;
+  userMatches: FirebaseListObservable<any[]>;
+  joinUsers;
+  membersMatch;
 
   constructor(private af: AngularFire, private platform: Platform) {
     this.af.auth.subscribe(auth => console.log("login: ", auth));
@@ -19,10 +23,6 @@ export class DbApiService {
     this.matches = this.af.database.list('/matches');
     return this.matches;
   }
-
-  //   removeItem(id) {
-  //     this.items.remove(id);
-  //   }
 
   getFireUsers(): FirebaseListObservable<any[]> {
     this.users = this.af.database.list('/users');
@@ -35,6 +35,60 @@ export class DbApiService {
       comment: match.comment, image: image, longitude: longitude, latitude: latitude, members: members
     });
   }
+
+  addMembersToMatch(matchId: string, memberId){
+    this.members = this.af.database.list('/matches/'+ matchId + '/members/');
+    this.matches = this.af.database.list('/users/'+ memberId + '/matches/');
+
+    this.members.subscribe(users => {
+      this.joinUsers = users;
+    });
+  
+    this.joinUsers.forEach(element => {
+      if(element.$value != memberId && this.joinUsers.length < 4) {
+        console.log("SIUUUUUUUUUUUUUUUUUUUU");  
+        this.members.push(memberId);
+        this.matches.push(matchId);
+      }else{
+        console.log('ERROR');
+      }
+    });
+    
+
+  }
+
+  removeMembersToMatch(matchId: string, memberId: string){
+    this.members = this.af.database.list('/matches/'+ matchId + '/members/');
+    this.members.subscribe(users => {
+      this.joinUsers = users;
+    });
+  
+    this.joinUsers.forEach(element => {
+      if(element.$value == memberId) {
+        console.log("SIUUUUUUUUUUUUUUUUUUUU");  
+        this.members.remove(element.$key);
+      }else{
+        console.log('ERROR');
+      }
+    });
+  }
+  
+  // removeMatchesToMember(matchId: string, memberId: string){
+  //   this.userMatches = this.af.database.list('/users/' + memberId + '/matches');
+  //   this.userMatches.subscribe(items => {
+  //     this.membersMatch = items;
+  //   });
+  //   console.log(this.membersMatch);
+
+  //   this.membersMatch.forEach(element => {
+  //     if(element.$value == matchId) {
+  //       console.log("SIUUUUUUUUUUUUUUUUUUUU");  
+  //       this.matches.remove(element.$key);
+  //     }else{
+  //       console.log('ERROR');
+  //     }
+  //   });
+  // }
 
   // addUser(user) {
   //   //this.users = this.af.database.list('/users');

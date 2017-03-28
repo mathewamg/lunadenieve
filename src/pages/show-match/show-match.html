@@ -7,12 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>showMatch</ion-title>
+    <ion-title>{{match.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+      <button ion-button icon-only (click)="joinMatch()">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="unJoinMatch()">
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
 </ion-content>

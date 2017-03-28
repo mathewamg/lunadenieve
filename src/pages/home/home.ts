@@ -43,8 +43,8 @@ export class HomePage {
     this.navCtrl.push(AddMatchPage);
   }
 
-  showMatch() {
-    this.navCtrl.push(ShowMatchPage);
+  showMatch($event, match) {
+    this.navCtrl.push(ShowMatchPage, match);
   }
 
   logout() {
