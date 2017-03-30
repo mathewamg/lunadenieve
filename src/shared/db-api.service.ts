@@ -10,9 +10,7 @@ export class DbApiService {
   matches: FirebaseListObservable<any[]>;
   users: FirebaseListObservable<any[]>;
   auth: any;
-  url: string;
   user: any;
-  userInfo: any;
 
   constructor(private af: AngularFire, private platform: Platform) {
     this.af.auth.subscribe(auth => {
