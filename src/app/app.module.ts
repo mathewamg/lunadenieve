@@ -1,3 +1,4 @@
+import { Image } from './../providers/image';
 import { LoginPage } from './../pages/login/login';
 import { AddMatchPage } from './../pages/add-match/add-match';
 import { ShowMatchPage} from './../pages/show-match/show-match';
@@ -53,6 +54,6 @@ export const firebaseConfig = {
     SignInPage,
     LoginPage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, DbApiService]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, DbApiService, Image]
 })
 export class AppModule { }

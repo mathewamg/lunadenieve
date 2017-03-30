@@ -1,3 +1,4 @@
+import { Image } from './../../providers/image';
 import { DbApiService } from './../../shared/db-api.service';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
@@ -7,14 +8,22 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'menu.html'
 })
 export class MenuPage {
-
-  constructor(public navCtrl: NavController, private DbApiService: DbApiService) {
+  //loading: boolean = true;
+  constructor(public navCtrl: NavController, private DbApiService: DbApiService, private ImageService: Image) {
 
   }
-
-  //Sólo funciona con facebook
+  
   getProfileImage() {
-    return this.DbApiService.getCurrentUser().auth.photoURL;
+    // return this.DbApiService.getCurrentUser().auth.photoURL; // Sólo funciona con facebook
+    return this.DbApiService.getCurrentProfileImage();
+  }
+
+  // onLoad() {
+  //   this.loading = false;
+  // }
+
+  updateProfileImage() {
+    this.ImageService.selectImage();
   }
 
 
