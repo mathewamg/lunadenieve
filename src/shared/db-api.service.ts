@@ -11,6 +11,8 @@ export class DbApiService {
   users: FirebaseListObservable<any[]>;
   auth: any;
   url: string;
+  user: any;
+  userInfo: any;
 
   constructor(private af: AngularFire, private platform: Platform) {
     this.af.auth.subscribe(auth => {
@@ -27,6 +29,12 @@ export class DbApiService {
   getFireUsers(): FirebaseListObservable<any[]> {
     this.users = this.af.database.list('/users');
     return this.users;
+  }
+
+  getUserInfo() {
+    this.user = this.af.database.list('/users/' + this.getCurrentUser().uid);
+    return this.user;
+
   }
 
   addMatch(match, image, longitude, latitude) {
@@ -143,14 +151,14 @@ export class DbApiService {
     //return firebase.auth().currentUser;
   }
 
-  getCurrentProfileImage(): string {
-    let currentUser = this.getCurrentUser().uid;
-    let urlRef = firebase.database().ref('users/' + currentUser + '/profile_image');
-    urlRef.on('value', snapshot => {
-      this.url = snapshot.val();
-    });
-    return this.url;
-  }
+  // getCurrentProfileImage(): string {
+  //   let currentUser = this.getCurrentUser().uid;
+  //   let urlRef = firebase.database().ref('users/' + currentUser + '/profile_image');
+  //   urlRef.on('value', snapshot => {
+  //     this.url = snapshot.val();
+  //   });
+  //   return this.url;
+  // }
 
   //Subir imágenes al storage de firebase
   uploadImage(image) {

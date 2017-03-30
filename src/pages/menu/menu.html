@@ -13,10 +13,10 @@
       <ion-avatar item-left>
         <!--<img *ngIf="loading" src="../../assets/gif/hourglass.gif" alt="loading" />-->
         <!--<img [hidden]="loading" (load)="onLoad()" class="profile-img" [src]="getProfileImage()" (click)="updateProfileImage()">-->
-        <img class="profile-img" [src]="getProfileImage()" (click)="updateProfileImage()" />
+        <img class="profile-img" src="{{image}}" (click)="updateProfileImage()" />
       </ion-avatar>
-      <h2>Mathew Muñoz</h2>
-      <p>Tercera Alta</p>
+      <h2>{{username}}</h2>
+      <p>{{level}}</p>
     </ion-item>
     <ion-item-divider class="divider" color="light"></ion-item-divider>
     <ion-item>Configuración Básica</ion-item>
