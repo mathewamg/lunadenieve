@@ -97,46 +97,66 @@ export class DbApiService {
     });
   }
 
-  // fireLogin(credentials) {
-  //   return this.af.auth.login({
-  //     email: credentials.email,
-  //     password: credentials.password
+  // loginWithFacebook() {
+  //   return Observable.create(observer => {
+  //     if (this.platform.is('cordova')) {
+  //       Facebook.login(['public_profile', 'email']).then(facebookData => {
+  //         let provider = firebase.auth.FacebookAuthProvider.credential(facebookData.authResponse.accessToken);
+  //         firebase.auth().signInWithCredential(provider).then(firebaseData => {
+  //           this.af.database.list('users').update(firebaseData.uid, {
+  //             name: firebaseData.displayName,
+  //             email: firebaseData.email,
+  //             profile_image: firebaseData.photoURL
+  //           });
+  //           observer.next();
+  //         });
+  //       }, error => {
+  //         observer.error(error);
+  //       });
+  //     } else {
+  //       this.af.auth.login({
+  //         provider: AuthProviders.Facebook,
+  //         method: AuthMethods.Popup
+  //       }).then((facebookData) => {
+  //         this.af.database.list('users').update(facebookData.auth.uid, {
+  //           name: facebookData.auth.displayName,
+  //           email: facebookData.auth.email,
+  //           profile_image: facebookData.auth.photoURL
+  //         });
+  //         observer.next();
+  //       }).catch((error) => {
+  //         console.info("error", error);
+  //         observer.error(error);
+  //       });
+  //     }
   //   });
   // }
 
-  loginWithFacebook() {
-    return Observable.create(observer => {
-      if (this.platform.is('cordova')) {
-        Facebook.login(['public_profile', 'email']).then(facebookData => {
-          let provider = firebase.auth.FacebookAuthProvider.credential(facebookData.authResponse.accessToken);
-          firebase.auth().signInWithCredential(provider).then(firebaseData => {
-            this.af.database.list('users').update(firebaseData.uid, {
-              name: firebaseData.displayName,
-              email: firebaseData.email,
-              profile_image: firebaseData.photoURL
-            });
-            observer.next();
+  loginWithFacebook(): any {
+    if (this.platform.is('cordova')) {
+      return Facebook.login(['public_profile', 'email']).then(res => {
+        let facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+
+        return firebase.auth().signInWithCredential(facebookCredential).then(firebaseData => {
+          this.af.database.list('users').update(firebaseData.uid, {
+            name: firebaseData.displayName,
+            email: firebaseData.email,
+            profile_image: firebaseData.photoURL
           });
-        }, error => {
-          observer.error(error);
         });
-      } else {
-        this.af.auth.login({
-          provider: AuthProviders.Facebook,
-          method: AuthMethods.Popup
-        }).then((facebookData) => {
-          this.af.database.list('users').update(facebookData.auth.uid, {
-            name: facebookData.auth.displayName,
-            email: facebookData.auth.email,
-            profile_image: facebookData.auth.photoURL
-          });
-          observer.next();
-        }).catch((error) => {
-          console.info("error", error);
-          observer.error(error);
+      });
+    } else {
+      return this.af.auth.login({
+        provider: AuthProviders.Facebook,
+        method: AuthMethods.Popup
+      }).then((facebookData) => {
+        this.af.database.list('users').update(facebookData.auth.uid, {
+          name: facebookData.auth.displayName,
+          email: facebookData.auth.email,
+          profile_image: facebookData.auth.photoURL
         });
-      }
-    });
+      });
+    }
   }
 
   fireLogout() {
@@ -148,15 +168,6 @@ export class DbApiService {
     //return this.af.auth.getAuth().auth;
     //return firebase.auth().currentUser;
   }
-
-  // getCurrentProfileImage(): string {
-  //   let currentUser = this.getCurrentUser().uid;
-  //   let urlRef = firebase.database().ref('users/' + currentUser + '/profile_image');
-  //   urlRef.on('value', snapshot => {
-  //     this.url = snapshot.val();
-  //   });
-  //   return this.url;
-  // }
 
   //Subir imágenes al storage de firebase
   uploadImage(image) {

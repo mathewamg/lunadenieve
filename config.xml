@@ -38,6 +38,6 @@
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
     <plugin name="cordova-plugin-facebook4" spec="~1.7.4">
         <variable name="APP_ID" value="347968555603317" />
-        <variable name="APP_NAME" value="luna­d­e­n­ieve" />
+        <variable name="APP_NAME" value="lunadenieve" />
     </plugin>
 </widget>

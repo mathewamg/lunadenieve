@@ -43,10 +43,8 @@ export class LoginPage {
   }
 
   loginUserWithFacebook() {
-    this.DbApiService.loginWithFacebook().subscribe(data => {
+    this.DbApiService.loginWithFacebook().then(data => {
       this.navCtrl.setRoot(TabsPage);
-    }, err => {
-      this.showError(err);
     });
   }
 
