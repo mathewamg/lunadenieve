@@ -11,9 +11,9 @@ export class DbApiService {
   matches: FirebaseListObservable<any[]>;
   users: FirebaseListObservable<any[]>;
   members: FirebaseListObservable<any[]>;
-  userMatches: FirebaseListObservable<any[]>;
+  // userMatches: FirebaseListObservable<any[]>;
   joinUsers;
-  membersMatch;
+  // membersMatch;
 
   constructor(private af: AngularFire, private platform: Platform) {
     this.af.auth.subscribe(auth => console.log("login: ", auth));
@@ -38,21 +38,23 @@ export class DbApiService {
 
   addMembersToMatch(matchId: string, memberId){
     this.members = this.af.database.list('/matches/'+ matchId + '/members/');
-    this.matches = this.af.database.list('/users/'+ memberId + '/matches/');
-
+    // this.matches = this.af.database.list('/users/'+ memberId + '/matches/');
+    
+    var exist = false;
     this.members.subscribe(users => {
       this.joinUsers = users;
     });
   
     this.joinUsers.forEach(element => {
-      if(element.$value != memberId && this.joinUsers.length < 4) {
-        console.log("SIUUUUUUUUUUUUUUUUUUUU");  
-        this.members.push(memberId);
-        this.matches.push(matchId);
-      }else{
-        console.log('ERROR');
+      if(element.$value == memberId) {
+        exist = true;
       }
     });
+    if (!exist && this.joinUsers.length < 4){
+      console.log("SIUUUUUUUUUUUUUUUUUUUU");  
+      this.members.push(memberId);
+      // this.matches.push(matchId);
+    }
     
 
   }
@@ -62,7 +64,7 @@ export class DbApiService {
     this.members.subscribe(users => {
       this.joinUsers = users;
     });
-  
+      console.log(this.joinUsers);
     this.joinUsers.forEach(element => {
       if(element.$value == memberId) {
         console.log("SIUUUUUUUUUUUUUUUUUUUU");  
@@ -72,6 +74,8 @@ export class DbApiService {
       }
     });
   }
+
+  
   
   // removeMatchesToMember(matchId: string, memberId: string){
   //   this.userMatches = this.af.database.list('/users/' + memberId + '/matches');
