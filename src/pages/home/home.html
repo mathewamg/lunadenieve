@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let match of matches" (click)="showMatch($event, match)">
+  <ion-card *ngFor="let match of matches; let k = index " (click)="showMatch($event, match)">
     <img src="{{match.image}}" height="180 px" />
     <ion-card-content>
       <ion-card-title>
@@ -28,6 +28,10 @@
       <p>
         {{match.time | date:'medium' }}
       </p>
+      <p>
+        {{counter[k]}}
+      </p>
+      
     </ion-card-content>
   </ion-card>
 </ion-content>

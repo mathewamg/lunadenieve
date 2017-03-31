@@ -14,10 +14,25 @@
 
 
 <ion-content padding>
-      <button ion-button icon-only (click)="joinMatch()">
-        <ion-icon name="add-circle"></ion-icon>
+      <button ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
+        <img src="{{userImages[0]}}">
       </button>
-      <button ion-button icon-only (click)="unJoinMatch()">
-        <ion-icon name="close-circle"></ion-icon>
+      <button ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
+        <ion-icon *ngIf="!userImages[1]" name="add"></ion-icon>
+        <!--<img *ngIf=" !empty && !userImages[1]" src="{{profileImage}}">-->
+        <img [hidden]="!userImages[1]" src="{{userImages[1]}}">
+      </button>
+      <button ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
+        <ion-icon *ngIf="!userImages[2]" name="add"></ion-icon>
+        <!--<img *ngIf="!empty && !userImages[2]" src="{{profileImage}}">-->
+        <img [hidden]="!userImages[2]" src="{{userImages[2]}}">
+      </button>
+      <button ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
+        <ion-icon *ngIf="!userImages[3]" name="add"></ion-icon>
+        <!--<img *ngIf="!empty && !userImages[3]" src="{{profileImage}}">        -->
+        <img [hidden]="!userImages[3]" src="{{userImages[3]}}">
+      </button>
+      <button ion-button color="dark" icon-only (click)="unJoinMatch()">
+        <ion-icon name="close"></ion-icon>
       </button>
 </ion-content>
