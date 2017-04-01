@@ -106,7 +106,7 @@ export class DbApiService {
 
     this.joinUsers.forEach(element => {
       if (element.$value == memberId) {
-        console.log("SIUUUUUUUUUUUUUUUUUUUU!");
+        console.log("SIUUUUUUUUUUUUUUUUUUUU!!");
         this.members.remove(element.$key);
       } else {
         console.log('ERROR');
