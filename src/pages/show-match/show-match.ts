@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { DbApiService } from "../../shared/db-api.service";
-import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
+import { Geolocation, GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 
 /*
   Generated class for the ShowMatch page.
@@ -23,14 +23,14 @@ export class ShowMatchPage {
   images: any;
   userImages = [];
   userJoined: any;
-  map: GoogleMap;
+  map: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private DbApiService: DbApiService, public platform: Platform) {
+    private DbApiService: DbApiService, private platform: Platform) {
     this.match = this.navParams.data;
-    platform.ready().then(() => {
-      this.loadMap();
-    })
+    this.platform.ready().then(() => {
+      this.currentPosition();
+    });
   }
 
   // ionViewDidLoad() {
@@ -76,16 +76,31 @@ export class ShowMatchPage {
 
   }
 
-  loadMap() {
-    let location = new GoogleMapsLatLng(-34.9290, 138.6010);
+  currentPosition(): any {
+    Geolocation.getCurrentPosition().then(res => {
+      console.log(res.coords);
+      let coordinates = [{
+        'longitude': res.coords.longitude,
+        'latitude': res.coords.latitude
+      }];
+      console.log(coordinates);
+      this.loadMap(coordinates);
+    });
+  }
 
+  loadMap(coordinates: any[]) {
+    console.log(coordinates);
+    let longitud = coordinates[0]['longitude'];
+    let latitude = coordinates[0]['latitude'];
+
+    let location = new GoogleMapsLatLng(latitude, longitud);
     this.map = new GoogleMap('map', {
       'backgroundColor': 'white',
       'controls': {
         'compass': true,
         'myLocationButton': true,
         'indoorPicker': true,
-        'zoom': true
+        'zoom': true,
       },
       'gestures': {
         'scroll': true,
@@ -100,23 +115,22 @@ export class ShowMatchPage {
         'bearing': 50
       }
     });
-
     this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
       console.log('Map is ready!');
     });
   }
+  
+    joinMatch() {
+      this.member = this.DbApiService.getCurrentUser().auth.uid;
 
-  joinMatch() {
-    this.member = this.DbApiService.getCurrentUser().auth.uid;
+      this.DbApiService.addMembersToMatch(this.match.$key, this.member, this.profileImage);
+    }
 
-    this.DbApiService.addMembersToMatch(this.match.$key, this.member, this.profileImage);
+    unJoinMatch() {
+      this.member = this.DbApiService.getCurrentUser().auth.uid;
+
+      this.DbApiService.removeMembersToMatch(this.match.$key, this.member, this.keyProfileImage);
+      // this.DbApiService.removeMatchesToMember(this.match.$key, this.member);
+      this.joined = false;
+    }
   }
-
-  unJoinMatch() {
-    this.member = this.DbApiService.getCurrentUser().auth.uid;
-
-    this.DbApiService.removeMembersToMatch(this.match.$key, this.member, this.keyProfileImage);
-    // this.DbApiService.removeMatchesToMember(this.match.$key, this.member);
-    this.joined = false;
-  }
-}
