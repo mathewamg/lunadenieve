@@ -35,6 +35,7 @@ export class HomePage {
         this.sortByTime = _.chain(this.allMatches).sortBy('time').value();
         this.matches = this.sortByTime;
         loader.dismiss();
+        this.counter = [];
         for (let match of this.matches){
           this.counter.push(Object.keys(match.members).length);
         }
