@@ -97,7 +97,7 @@ export class DbApiService {
 
   }
 
-  removeMembersToMatch(matchId: string, memberId: string, profileImage: string) {
+  removeMembersToMatch(matchId: string, memberId: string, keyProfileImage: string) {
     this.members = this.af.database.list('/matches/' + matchId + '/members/');
 
     this.members.subscribe(users => {
@@ -117,7 +117,7 @@ export class DbApiService {
       this.usersImages = images;
     });
     this.usersImages.forEach(element => {
-      if (element.$value == profileImage) {
+      if (element.$key == keyProfileImage) {
         console.log("SIUUUUUUUUUUUUUUUUUUUU");
         this.pictures.remove(element.$key);
       } else {
