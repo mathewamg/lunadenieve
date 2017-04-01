@@ -51,10 +51,9 @@ export class ShowMatchPage {
       this.userImages = [];
       for (let image of this.images) {
         this.userImages.push(image.$value);
-        
-        if(image.$value == this.profileImage){
-            this.keyProfileImage = image.$key;
-            console.log(this.keyProfileImage);
+
+        if (image.$value == this.profileImage) {
+          this.keyProfileImage = image.$key;
         }
       }
     });
