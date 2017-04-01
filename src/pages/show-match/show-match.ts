@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { DbApiService } from "../../shared/db-api.service";
+import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 
 /*
   Generated class for the ShowMatch page.
@@ -22,10 +23,16 @@ export class ShowMatchPage {
   images: any;
   userImages = [];
   userJoined: any;
+  map: GoogleMap;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private DbApiService: DbApiService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private DbApiService: DbApiService, public platform: Platform) {
     this.match = this.navParams.data;
+    platform.ready().then(() => {
+      this.loadMap();
+    })
   }
+
   // ionViewDidLoad() {
   //   this.DbApiService.getUserInfo().subscribe(resp => {
   //     this.userInfo = resp;
@@ -67,6 +74,36 @@ export class ShowMatchPage {
       }
     });
 
+  }
+
+  loadMap() {
+    let location = new GoogleMapsLatLng(-34.9290, 138.6010);
+
+    this.map = new GoogleMap('map', {
+      'backgroundColor': 'white',
+      'controls': {
+        'compass': true,
+        'myLocationButton': true,
+        'indoorPicker': true,
+        'zoom': true
+      },
+      'gestures': {
+        'scroll': true,
+        'tilt': true,
+        'rotate': true,
+        'zoom': true
+      },
+      'camera': {
+        'latLng': location,
+        'tilt': 30,
+        'zoom': 15,
+        'bearing': 50
+      }
+    });
+
+    this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+      console.log('Map is ready!');
+    });
   }
 
   joinMatch() {

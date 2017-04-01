@@ -15,20 +15,21 @@
 
 <ion-content padding>
 
-      <!--<button ion-button icon-only (click)="joinMatch()">
+  <!--<button ion-button icon-only (click)="joinMatch()">
         <ion-icon *ngIf="empty" name="add-circle"></ion-icon>
         <img [hidden]="empty" src="{{profileImage}}">-->
 
-      <button *ngFor="let image of userImages" ion-button color="dark" class="circle-img" icon-only>
+  <div id="map"></div>
+
+  <button *ngFor="let image of userImages" ion-button color="dark" class="circle-img" icon-only>
         <img src="{{image}}">
       </button>
 
-      <button *ngIf="userImages.length < 4" ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
+  <button *ngIf="userImages.length < 4" ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
         <ion-icon name="add"></ion-icon>
       </button>
 
-      <button *ngIf="joined" ion-button color="dark" icon-only (click)="unJoinMatch()">
+  <button *ngIf="joined" ion-button color="dark" icon-only (click)="unJoinMatch()">
         <ion-icon name="close"></ion-icon>
       </button>
 </ion-content>
-
