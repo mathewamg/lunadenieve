@@ -18,6 +18,7 @@ export class ShowMatchPage {
   userInfo: any;
   joined: boolean = false;
   profileImage: any;
+  keyProfileImage: string;
   images: any;
   userImages = [];
   userJoined: any;
@@ -50,6 +51,11 @@ export class ShowMatchPage {
       this.userImages = [];
       for (let image of this.images) {
         this.userImages.push(image.$value);
+        
+        if(image.$value == this.profileImage){
+            this.keyProfileImage = image.$key;
+            console.log(this.keyProfileImage);
+        }
       }
     });
     this.DbApiService.getFireMembers(this.match.$key).subscribe(resp => {
@@ -73,7 +79,7 @@ export class ShowMatchPage {
   unJoinMatch() {
     this.member = this.DbApiService.getCurrentUser().auth.uid;
 
-    this.DbApiService.removeMembersToMatch(this.match.$key, this.member, this.profileImage);
+    this.DbApiService.removeMembersToMatch(this.match.$key, this.member, this.keyProfileImage);
     // this.DbApiService.removeMatchesToMember(this.match.$key, this.member);
     this.joined = false;
   }
