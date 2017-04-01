@@ -23,6 +23,19 @@ export class DbApiService {
     });
   }
 
+
+  isAuthenticated() {
+    return Observable.create(observer => {
+      this.af.auth.subscribe(authData => {
+        if (authData) {
+          observer.next();
+        } else {
+          observer.error();
+        }
+      });
+    });
+  }
+
   getFireMatches(): FirebaseListObservable<any[]> {
     this.matches = this.af.database.list('/matches');
     return this.matches;
@@ -36,7 +49,6 @@ export class DbApiService {
   getUserInfo() {
     this.user = this.af.database.list('/users/' + this.getCurrentUser().uid);
     return this.user;
-
   }
 
   addMatch(match, image, longitude, latitude, members) {
@@ -46,47 +58,47 @@ export class DbApiService {
     });
   }
 
-  addMembersToMatch(matchId: string, memberId){
-    this.members = this.af.database.list('/matches/'+ matchId + '/members/');
+  addMembersToMatch(matchId: string, memberId) {
+    this.members = this.af.database.list('/matches/' + matchId + '/members/');
     // this.matches = this.af.database.list('/users/'+ memberId + '/matches/');
-    
+
     var exist = false;
     this.members.subscribe(users => {
       this.joinUsers = users;
     });
-  
+
     this.joinUsers.forEach(element => {
-      if(element.$value == memberId) {
+      if (element.$value == memberId) {
         exist = true;
       }
     });
-    if (!exist && this.joinUsers.length < 4){
-      console.log("SIUUUUUUUUUUUUUUUUUUUU");  
+    if (!exist && this.joinUsers.length < 4) {
+      console.log("SIUUUUUUUUUUUUUUUUUUUU");
       this.members.push(memberId);
       // this.matches.push(matchId);
     }
-    
+
 
   }
 
-  removeMembersToMatch(matchId: string, memberId: string){
-    this.members = this.af.database.list('/matches/'+ matchId + '/members/');
+  removeMembersToMatch(matchId: string, memberId: string) {
+    this.members = this.af.database.list('/matches/' + matchId + '/members/');
     this.members.subscribe(users => {
       this.joinUsers = users;
     });
-      console.log(this.joinUsers);
+    console.log(this.joinUsers);
     this.joinUsers.forEach(element => {
-      if(element.$value == memberId) {
-        console.log("SIUUUUUUUUUUUUUUUUUUUU");  
+      if (element.$value == memberId) {
+        console.log("SIUUUUUUUUUUUUUUUUUUUU");
         this.members.remove(element.$key);
-      }else{
+      } else {
         console.log('ERROR');
       }
     });
   }
 
-  
-  
+
+
   // removeMatchesToMember(matchId: string, memberId: string){
   //   this.userMatches = this.af.database.list('/users/' + memberId + '/matches');
   //   this.userMatches.subscribe(items => {

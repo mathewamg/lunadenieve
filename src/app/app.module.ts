@@ -1,3 +1,4 @@
+import { Count } from './../pipes/count';
 import { Image } from './../providers/image';
 import { LoginPage } from './../pages/login/login';
 import { AddMatchPage } from './../pages/add-match/add-match';
@@ -36,7 +37,8 @@ export const firebaseConfig = {
     AddMatchPage,
     ShowMatchPage,
     SignInPage,
-    LoginPage
+    LoginPage,
+    Count
   ],
   imports: [
     IonicModule.forRoot(MyApp),

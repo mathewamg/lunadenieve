@@ -5,9 +5,6 @@
       <button ion-button icon-only (click)="addMatch()">
         <ion-icon name="add-circle"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="logout()">
-        <ion-icon name="power"></ion-icon>
-      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -28,6 +25,9 @@
       <p>
         {{match.time | date:'medium' }}
       </p>
+      <!--<p>
+        {{match.members | count }}
+      </p>-->
     </ion-card-content>
   </ion-card>
 </ion-content>

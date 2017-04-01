@@ -1,4 +1,3 @@
-import { LoginPage } from './../login/login';
 import { ShowMatchPage} from './../show-match/show-match';
 import { AddMatchPage } from './../add-match/add-match';
 import { DbApiService } from './../../shared/db-api.service';
@@ -45,16 +44,5 @@ export class HomePage {
 
   showMatch($event, match) {
     this.navCtrl.push(ShowMatchPage, match);
-  }
-
-  logout() {
-    this.DbApiService.fireLogout();
-    let toast = this.toastController.create({
-      message: 'Hasta pronto guapo!',
-      position: 'bottom',
-      duration: 3000
-    });
-    toast.present();
-    this.navCtrl.parent.parent.setRoot(LoginPage);
   }
 }

@@ -15,9 +15,11 @@
 
 <ion-content padding>
       <button ion-button icon-only (click)="joinMatch()">
-        <ion-icon name="add-circle"></ion-icon>
+        <ion-icon *ngIf="empty" name="add-circle"></ion-icon>
+        <img [hidden]="empty" src="{{profileImage}}">
       </button>
       <button ion-button icon-only (click)="unJoinMatch()">
         <ion-icon name="close-circle"></ion-icon>
       </button>
 </ion-content>
+

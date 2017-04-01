@@ -15,9 +15,23 @@ import { DbApiService } from "../../shared/db-api.service";
 export class ShowMatchPage {
   match: any;
   member: any;
+  empty: boolean = true;
+  userInfo: any;
+  profileImage: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private DbApiService: DbApiService) {
-    this.match = this.navParams.data; 
+    this.match = this.navParams.data;
+  }
+
+  ionViewDidLoad() {
+    this.DbApiService.getUserInfo().subscribe(resp => {
+      this.userInfo = resp;
+      this.userInfo.forEach(field => {
+        if (field.$key == 'profile_image') {
+          this.profileImage = field.$value;
+        }
+      });
+    });
   }
 
   // joinMatch(){
@@ -26,14 +40,16 @@ export class ShowMatchPage {
   //   });
   // }
 
-  joinMatch(){
+  joinMatch() {
     this.member = this.DbApiService.getCurrentUser().auth.uid;
     this.DbApiService.addMembersToMatch(this.match.$key, this.member);
+    this.empty = false;
   }
 
-  unJoinMatch(){
+  unJoinMatch() {
     this.member = this.DbApiService.getCurrentUser().auth.uid;
     this.DbApiService.removeMembersToMatch(this.match.$key, this.member);
+    this.empty = true;
     // this.DbApiService.removeMatchesToMember(this.match.$key, this.member);
   }
 }

@@ -9,7 +9,7 @@
 <ion-content class="no-img">
   <ion-list>
     <ion-item-divider color="light"></ion-item-divider>
-    <ion-item>
+    <ion-item no-lines>
       <ion-avatar item-left>
         <!--<img *ngIf="loading" src="../../assets/gif/hourglass.gif" alt="loading" />-->
         <!--<img [hidden]="loading" (load)="onLoad()" class="profile-img" [src]="getProfileImage()" (click)="updateProfileImage()">-->
@@ -20,12 +20,12 @@
     </ion-item>
     <ion-item-divider class="divider" color="light"></ion-item-divider>
     <ion-item>Configuración Básica</ion-item>
-    <ion-item>Configuración de notificaciones</ion-item>
+    <ion-item no-lines>Configuración de notificaciones</ion-item>
     <ion-item-divider class="divider" color="light"></ion-item-divider>
     <ion-item>Contacto</ion-item>
-    <ion-item>Legal</ion-item>
+    <ion-item no-lines>Legal</ion-item>
     <ion-item-divider class="divider" color="light"></ion-item-divider>
-    <ion-item>Cerrar Sesión</ion-item>
+    <ion-item no-lines (click)="logout()">Cerrar Sesión</ion-item>
     <ion-item class="copyright" color="light">Version 2017 © Alex&Matt </ion-item>
 
   </ion-list>
