@@ -15,13 +15,26 @@ import { DbApiService } from "../../shared/db-api.service";
 export class ShowMatchPage {
   match: any;
   member: any;
-  empty: boolean = true;
   userInfo: any;
+  joined: boolean = false;
   profileImage: any;
+  images: any;
+  userImages = [];
+  userJoined: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private DbApiService: DbApiService) {
     this.match = this.navParams.data;
   }
+  // ionViewDidLoad() {
+  //   this.DbApiService.getUserInfo().subscribe(resp => {
+  //     this.userInfo = resp;
+  //     this.userInfo.forEach(field => {
+  //       if (field.$key == 'profile_image') {
+  //         this.profileImage = field.$value;
+  //       }
+  //     });
+  //   });
+
 
   ionViewDidLoad() {
     this.DbApiService.getUserInfo().subscribe(resp => {
@@ -32,24 +45,36 @@ export class ShowMatchPage {
         }
       });
     });
-  }
+    this.DbApiService.getFireMembersPictures(this.match.$key).subscribe(resp => {
+      this.images = resp;
+      this.userImages = [];
+      for (let image of this.images) {
+        this.userImages.push(image.$value);
+      }
+    });
+    this.DbApiService.getFireMembers(this.match.$key).subscribe(resp => {
+      this.userJoined = resp;
+      let currentUser = this.DbApiService.getCurrentUser().uid;
+      for (let user of this.userJoined) {
+        if (user.$value == currentUser) {
+          this.joined = true;
+        }
+      }
+    });
 
-  // joinMatch(){
-  //   this.DbApiService.gerFireJoinMatch(this.match.$key).subscribe(users => {
-  //     this.members = users;
-  //   });
-  // }
+  }
 
   joinMatch() {
     this.member = this.DbApiService.getCurrentUser().auth.uid;
-    this.DbApiService.addMembersToMatch(this.match.$key, this.member);
-    this.empty = false;
+
+    this.DbApiService.addMembersToMatch(this.match.$key, this.member, this.profileImage);
   }
 
   unJoinMatch() {
     this.member = this.DbApiService.getCurrentUser().auth.uid;
-    this.DbApiService.removeMembersToMatch(this.match.$key, this.member);
-    this.empty = true;
+
+    this.DbApiService.removeMembersToMatch(this.match.$key, this.member, this.profileImage);
     // this.DbApiService.removeMatchesToMember(this.match.$key, this.member);
+    this.joined = false;
   }
 }

@@ -12,8 +12,11 @@ export class DbApiService {
   auth: any;
   user: any;
   members: FirebaseListObservable<any[]>;
-  // userMatches: FirebaseListObservable<any[]>;
   joinUsers;
+  pictures: FirebaseListObservable<any[]>;
+  usersImages;
+  joined: boolean;
+  // userMatches: FirebaseListObservable<any[]>;
   // membersMatch;
 
   constructor(private af: AngularFire, private platform: Platform) {
@@ -40,6 +43,10 @@ export class DbApiService {
     this.matches = this.af.database.list('/matches');
     return this.matches;
   }
+  getFireMembersPictures(matchId): FirebaseListObservable<any[]> {
+    this.pictures = this.af.database.list('/matches/' + matchId + '/pictures/');
+    return this.pictures;
+  }
 
   getFireUsers(): FirebaseListObservable<any[]> {
     this.users = this.af.database.list('/users');
@@ -51,15 +58,22 @@ export class DbApiService {
     return this.user;
   }
 
-  addMatch(match, image, longitude, latitude, members) {
+  addMatch(match, image, longitude, latitude, members, pictures) {
     this.matches.push({
       name: match.name, place: match.place, time: match.time, level: match.level,
-      comment: match.comment, image: image, longitude: longitude, latitude: latitude, members: members
+      comment: match.comment, image: image, longitude: longitude, latitude: latitude,
+      members: members, pictures: pictures
     });
   }
 
-  addMembersToMatch(matchId: string, memberId) {
+  getFireMembers(matchId) {
     this.members = this.af.database.list('/matches/' + matchId + '/members/');
+    return this.members;
+  }
+
+  addMembersToMatch(matchId: string, memberId: string, profileImage: string) {
+    this.members = this.af.database.list('/matches/' + matchId + '/members/');
+    this.pictures = this.af.database.list('/matches/' + matchId + '/pictures/');
     // this.matches = this.af.database.list('/users/'+ memberId + '/matches/');
 
     var exist = false;
@@ -75,22 +89,37 @@ export class DbApiService {
     if (!exist && this.joinUsers.length < 4) {
       console.log("SIUUUUUUUUUUUUUUUUUUUU");
       this.members.push(memberId);
+      this.pictures.push(profileImage);
+
       // this.matches.push(matchId);
     }
 
 
   }
 
-  removeMembersToMatch(matchId: string, memberId: string) {
+  removeMembersToMatch(matchId: string, memberId: string, profileImage: string) {
     this.members = this.af.database.list('/matches/' + matchId + '/members/');
+
     this.members.subscribe(users => {
       this.joinUsers = users;
     });
-    console.log(this.joinUsers);
+
     this.joinUsers.forEach(element => {
       if (element.$value == memberId) {
         console.log("SIUUUUUUUUUUUUUUUUUUUU");
         this.members.remove(element.$key);
+      } else {
+        console.log('ERROR');
+      }
+    });
+    this.pictures = this.af.database.list('/matches/' + matchId + '/pictures/');
+    this.pictures.subscribe(images => {
+      this.usersImages = images;
+    });
+    this.usersImages.forEach(element => {
+      if (element.$value == profileImage) {
+        console.log("SIUUUUUUUUUUUUUUUUUUUU");
+        this.pictures.remove(element.$key);
       } else {
         console.log('ERROR');
       }

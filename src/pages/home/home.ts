@@ -10,11 +10,13 @@ import * as _ from 'lodash';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  title = "PadelConnect";
+  title = "Partidos Disponibles";
   matches: any[];
+  counter = [];
+  numberJoinMembers = 0;
   private allMatches: any;
   private sortByTime: any;
-  
+    
 
   constructor(public navCtrl: NavController, private DbApiService: DbApiService, private loadingController: LoadingController,
     private toastController: ToastController) {
@@ -32,11 +34,15 @@ export class HomePage {
         this.allMatches = resp; 
         this.sortByTime = _.chain(this.allMatches).sortBy('time').value();
         this.matches = this.sortByTime;
-        //console.log("resp fire", resp);
         loader.dismiss();
+        for (let match of this.matches){
+          this.counter.push(Object.keys(match.members).length);
+        }
       });
     });
+    
   }
+
 
   addMatch() {
     this.navCtrl.push(AddMatchPage);
