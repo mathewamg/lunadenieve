@@ -1,7 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { DbApiService } from "../../shared/db-api.service";
-import { Geolocation, GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  LatLng,
+  CameraPosition,
+  MarkerOptions,
+  Marker
+} from '@ionic-native/google-maps';
 
 /*
   Generated class for the ShowMatch page.
@@ -23,14 +31,11 @@ export class ShowMatchPage {
   images: any;
   userImages = [];
   userJoined: any;
-  map: any;
+  matchInfo: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private DbApiService: DbApiService, private platform: Platform) {
+    private DbApiService: DbApiService, private googleMaps: GoogleMaps) {
     this.match = this.navParams.data;
-    this.platform.ready().then(() => {
-      this.currentPosition();
-    });
   }
 
   // ionViewDidLoad() {
@@ -43,8 +48,10 @@ export class ShowMatchPage {
   //     });
   //   });
 
-
   ionViewDidLoad() {
+
+    this.loadMap();
+
     this.DbApiService.getUserInfo().subscribe(resp => {
       this.userInfo = resp;
       this.userInfo.forEach(field => {
@@ -76,61 +83,83 @@ export class ShowMatchPage {
 
   }
 
-  currentPosition(): any {
-    Geolocation.getCurrentPosition().then(res => {
-      console.log(res.coords);
-      let coordinates = [{
-        'longitude': res.coords.longitude,
-        'latitude': res.coords.latitude
-      }];
-      console.log(coordinates);
-      this.loadMap(coordinates);
+  loadMap() {
+
+    this.DbApiService.getMatchInfo(this.match.$key).subscribe(res => {
+      //console.log(res);
+      this.matchInfo = res;
+      let matchLongitude;
+      let matchLatitude;
+      this.matchInfo.forEach(field => {
+        if (field.$key == 'longitude') {
+          matchLongitude = field.$value;
+        } else if (field.$key == 'latitude') {
+          matchLatitude = field.$value;
+        }
+      });
+
+      let element: HTMLElement = document.getElementById('map');
+
+      let location: LatLng = new LatLng(matchLatitude, matchLongitude);
+
+      let map: GoogleMap = this.googleMaps.create(element, {
+        'backgroundColor': 'white',
+        'controls': {
+          'compass': true,
+          'myLocationButton': true,
+          'indoorPicker': true,
+          'zoom': true,
+        },
+        'gestures': {
+          'scroll': true,
+          'tilt': true,
+          'rotate': true,
+          'zoom': true
+        },
+        'camera': {
+          'latLng': location,
+          'tilt': 30,
+          'zoom': 15,
+          'bearing': 50
+        }
+      });
+
+      map.one(GoogleMapsEvent.MAP_READY).then(() => {
+        let position: CameraPosition = {
+          target: location,
+          zoom: 15,
+          tilt: 30,
+          bearing: 50
+        };
+
+        map.moveCamera(position);
+
+        let markerOptions: MarkerOptions = {
+          position: location,
+          title: 'Tenso pa allí!'
+        };
+
+        map.addMarker(markerOptions).then((marker: Marker) => {
+          marker.showInfoWindow();
+        });
+      });
+
+
     });
+
   }
 
-  loadMap(coordinates: any[]) {
-    console.log(coordinates);
-    let longitud = coordinates[0]['longitude'];
-    let latitude = coordinates[0]['latitude'];
+  joinMatch() {
+    this.member = this.DbApiService.getCurrentUser().auth.uid;
 
-    let location = new GoogleMapsLatLng(latitude, longitud);
-    this.map = new GoogleMap('map', {
-      'backgroundColor': 'white',
-      'controls': {
-        'compass': true,
-        'myLocationButton': true,
-        'indoorPicker': true,
-        'zoom': true,
-      },
-      'gestures': {
-        'scroll': true,
-        'tilt': true,
-        'rotate': true,
-        'zoom': true
-      },
-      'camera': {
-        'latLng': location,
-        'tilt': 30,
-        'zoom': 15,
-        'bearing': 50
-      }
-    });
-    this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-      console.log('Map is ready!');
-    });
+    this.DbApiService.addMembersToMatch(this.match.$key, this.member, this.profileImage);
   }
-  
-    joinMatch() {
-      this.member = this.DbApiService.getCurrentUser().auth.uid;
 
-      this.DbApiService.addMembersToMatch(this.match.$key, this.member, this.profileImage);
-    }
+  unJoinMatch() {
+    this.member = this.DbApiService.getCurrentUser().auth.uid;
 
-    unJoinMatch() {
-      this.member = this.DbApiService.getCurrentUser().auth.uid;
-
-      this.DbApiService.removeMembersToMatch(this.match.$key, this.member, this.keyProfileImage);
-      // this.DbApiService.removeMatchesToMember(this.match.$key, this.member);
-      this.joined = false;
-    }
+    this.DbApiService.removeMembersToMatch(this.match.$key, this.member, this.keyProfileImage);
+    // this.DbApiService.removeMatchesToMember(this.match.$key, this.member);
+    this.joined = false;
   }
+}

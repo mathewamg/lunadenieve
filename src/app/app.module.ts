@@ -12,6 +12,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { MenuPage } from "../pages/menu/menu";
 import { SearchPage } from "../pages/search/search";
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDlFG0TvvPKYTZVRuF6qsDvRiHZ6IUNcLY",
@@ -54,6 +55,6 @@ export const firebaseConfig = {
     SignInPage,
     LoginPage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, DbApiService, Image]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, DbApiService, Image, GoogleMaps]
 })
 export class AppModule { }

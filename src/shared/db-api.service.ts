@@ -16,6 +16,7 @@ export class DbApiService {
   pictures: FirebaseListObservable<any[]>;
   usersImages;
   joined: boolean;
+  matchInfo: any;
   // userMatches: FirebaseListObservable<any[]>;
   // membersMatch;
 
@@ -56,6 +57,11 @@ export class DbApiService {
   getUserInfo() {
     this.user = this.af.database.list('/users/' + this.getCurrentUser().uid);
     return this.user;
+  }
+
+  getMatchInfo(matchId) {
+    this.matchInfo = this.af.database.list('/matches/' + matchId);
+    return this.matchInfo;
   }
 
   addMatch(match, image, longitude, latitude, members, pictures) {
