@@ -1,11 +1,17 @@
 page-show-match {
-
+    ion-content {
+        background-image: url('../assets/img/showMatch.jpg');
+        background-size: cover;
+    }
     .circle-img{
         border-radius: 50% !important;
-        width: 80px !important;
-        height: 80px !important;
+        width: 65px !important;
+        height: 65px !important;
     }
     ion-icon.icon.icon-md{
         font-size: 2.8em !important;
+    }
+    .joinMatch{
+        margin-top: 230px;
     }
 }

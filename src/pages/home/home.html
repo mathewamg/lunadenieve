@@ -25,11 +25,8 @@
       <p>
         {{match.time | date:'medium' }}
       </p>
-      <!--<p>
-        {{match.members | count }}
-      </p>-->
       <p>
-        {{counter[k]}}
+        <ion-badge color="orange">{{counter[k]}} / 4</ion-badge>
       </p>
     </ion-card-content>
   </ion-card>
