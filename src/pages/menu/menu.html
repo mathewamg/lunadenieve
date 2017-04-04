@@ -13,10 +13,15 @@
       <ion-avatar item-left>
         <!--<img *ngIf="loading" src="../../assets/gif/hourglass.gif" alt="loading" />-->
         <!--<img [hidden]="loading" (load)="onLoad()" class="profile-img" [src]="getProfileImage()" (click)="updateProfileImage()">-->
-        <img class="profile-img" src="{{image}}" (click)="updateProfileImage()" />
+        <img class="profile-img" src="{{image}}" />
       </ion-avatar>
       <h2>{{username}}</h2>
       <p>{{level}}</p>
+      <ion-fab item-right right>
+        <button *ngIf="facebook == null" ion-fab color="dark" (click)="updateProfileImage()">
+          <ion-icon name="camera"></ion-icon>
+        </button>
+      </ion-fab>
     </ion-item>
     <ion-item-divider class="divider" color="light"></ion-item-divider>
     <ion-item>Configuración Básica</ion-item>

@@ -1,3 +1,4 @@
+import { ShowMatchPage } from './../show-match/show-match';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DbApiService } from './../../shared/db-api.service';
@@ -41,6 +42,10 @@ export class SearchPage {
         return (item.placeName.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
+  }
+
+  showMatch($event, match) {
+    this.navCtrl.push(ShowMatchPage, match);
   }
 }
 

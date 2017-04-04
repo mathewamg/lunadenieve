@@ -14,10 +14,11 @@ export class MenuPage {
   username: any;
   level: any;
   image: any;
+  facebook: any;
 
   constructor(public navCtrl: NavController, private DbApiService: DbApiService,
     private ImageService: Image, private toastController: ToastController) {
-
+      this.facebook = this.DbApiService.getCurrentUser().facebook;
   }
 
   ionViewDidLoad() {

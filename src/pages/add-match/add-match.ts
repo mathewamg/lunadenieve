@@ -1,4 +1,3 @@
-import { HomePage } from './../home/home';
 import { DbApiService } from './../../shared/db-api.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
@@ -80,7 +79,7 @@ export class AddMatchPage {
       duration: 5000
     });
     toast.present();
-    this.navCtrl.push(HomePage);
+    this.navCtrl.popToRoot();
     
   }
 }

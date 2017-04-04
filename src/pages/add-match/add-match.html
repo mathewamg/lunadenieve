@@ -14,17 +14,17 @@
 
 
 <ion-content padding>
-  <form (ngSubmit)="createMatch()">
+  <form (ngSubmit)="createMatch()" #addMatchForm="ngForm">
     <ion-list>
 
       <ion-item>
         <ion-label fixed>Nombre</ion-label>
-        <ion-input type="text" [(ngModel)]="match.name" name="name"></ion-input>
+        <ion-input type="text" [(ngModel)]="match.name" name="name" required></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label fixed>Lugar</ion-label>
-        <ion-select [(ngModel)]="match.place" name="place">
+        <ion-select [(ngModel)]="match.place" name="place" required>
           <ion-option value="7 palmas" selected="true">7 palmas</ion-option>
           <ion-option value="Palmeras Golf Las Palmas">Palmeras Golf Las Palmas</ion-option>
           <ion-option value="4+quepadel">4+quepadel</ion-option>
@@ -34,12 +34,12 @@
 
       <ion-item>
         <ion-label fixed>Fecha y Hora</ion-label>
-        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="match.time" name="time"></ion-datetime>
+        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" min="2017" max="2017" [(ngModel)]="match.time" name="time" required></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label fixed>Nivel</ion-label>
-        <ion-select [(ngModel)]="match.level" name="level">
+        <ion-select [(ngModel)]="match.level" name="level" required>
           <ion-option value="Segunda" selected="true">Segunda</ion-option>
           <ion-option value="Tercera">Tercera</ion-option>
           <ion-option value="Cuarta">Cuarta</ion-option>
@@ -48,10 +48,10 @@
 
       <ion-item>
         <ion-label fixed>Comentarios</ion-label>
-        <ion-textarea rows="6" [(ngModel)]="match.comment" name="comment"></ion-textarea>
+        <ion-textarea maxlength="70" rows="4" [(ngModel)]="match.comment" name="comment"></ion-textarea>
       </ion-item>
 
-      <button ion-button type="submit" block>Crear</button>
+      <button ion-button block [disabled]="!addMatchForm.form.valid">Crear</button>
 
     </ion-list>
   </form>

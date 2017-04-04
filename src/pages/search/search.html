@@ -10,7 +10,7 @@
 
     <ion-item-group *ngFor="let places of matches">
       <ion-item-divider color="light">{{ places.placeName }}</ion-item-divider>
-      <button ion-item *ngFor="let match of places.matchPlaces" >{{ match.name }}</button>
+      <button ion-item *ngFor="let match of places.matchPlaces" (click)="showMatch($event, match)">{{ match.name }}</button>
     </ion-item-group>
   </ion-list>
 </ion-content>
