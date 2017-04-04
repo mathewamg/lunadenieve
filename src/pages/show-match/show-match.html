@@ -12,12 +12,7 @@
 
 </ion-header>
 
-
-<ion-content>
-
-  <!--<button ion-button icon-only (click)="joinMatch()">
-        <ion-icon *ngIf="empty" name="add-circle"></ion-icon>
-        <img [hidden]="empty" src="{{profileImage}}">-->
+<!--<ion-content>
 
   <div id="map"></div>
 
@@ -32,4 +27,60 @@
   <button *ngIf="joined" ion-button color="dark" icon-only (click)="unJoinMatch()">
         <ion-icon name="close"></ion-icon>
       </button>
+</ion-content>-->
+
+<ion-content>
+  <div id="map"></div>
+
+  <div class="joinMatch">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6 *ngFor="let image of userImages" no-padding>
+          <ion-col col-3 offset-6 *ngIf="image == userImages[0]">
+            <button ion-button color="dark" class="circle-img" icon-only>
+              <img src="{{image}}">
+            </button>
+          </ion-col>
+          <ion-col col-3 offset-1 *ngIf="image == userImages[1]">
+            <button ion-button color="dark" class="circle-img" icon-only>
+              <img src="{{image}}">
+            </button>
+          </ion-col>
+          <ion-col col-3 offset-2 *ngIf="image == userImages[2]">
+            <button ion-button color="dark" class="circle-img" icon-only>
+              <img src="{{image}}">
+            </button>
+          </ion-col>
+          <ion-col col-3 offset-4 *ngIf="image == userImages[3]">
+            <button ion-button color="dark" class="circle-img" icon-only>
+              <img src="{{image}}">
+            </button>
+          </ion-col>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <ion-col col-3 offset-1 *ngIf="userImages.length == 1">
+            <button *ngIf="userImages.length < 4" ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col col-3 offset-2 *ngIf="userImages.length == 2">
+            <button *ngIf="userImages.length < 4" ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col col-3 offset-4 *ngIf="userImages.length == 3">
+            <button *ngIf="userImages.length < 4" ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+      </ion-row>
+    </ion-grid>
+
+    <button *ngIf="joined" ion-button color="dark" icon-only (click)="unJoinMatch()">
+      <ion-icon name="close"></ion-icon>
+    </button>
+  </div>
 </ion-content>

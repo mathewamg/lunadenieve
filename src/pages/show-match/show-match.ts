@@ -103,7 +103,6 @@ export class ShowMatchPage {
       let location: LatLng = new LatLng(matchLatitude, matchLongitude);
 
       let map: GoogleMap = this.googleMaps.create(element, {
-        'backgroundColor': 'white',
         'controls': {
           'compass': true,
           'myLocationButton': true,
