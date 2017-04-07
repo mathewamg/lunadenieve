@@ -39,8 +39,9 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-3 offset-9>
-          <ion-badge *ngIf="counter[k]>0" [ngClass]="{'success': counter[k]<3 ,
+        <ion-col col-7 offset-6>
+          <ion-note>Participantes </ion-note>
+          <ion-badge *ngIf="counter[k]>0" [ngClass]="{'success': counter[k]< 3 ,
       'warning': counter[k]==3 , 'full': counter[k]>3}">{{counter[k]}} / 4</ion-badge>
         </ion-col>
       </ion-row>
