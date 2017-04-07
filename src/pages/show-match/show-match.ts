@@ -54,10 +54,6 @@ export class ShowMatchPage {
       this.userImages = [];
       for (let image of this.images) {
         this.userImages.push(image.$value);
-
-        if (image.$value == this.profileImage) {
-          this.keyProfileImage = image.$key;
-        }
       }
     });
     this.DbApiService.getFireMembers(this.match.$key).subscribe(resp => {
@@ -80,6 +76,13 @@ export class ShowMatchPage {
 
   unJoinMatch() {
     this.member = this.DbApiService.getCurrentUser().auth.uid;
+
+    for (let image of this.images) {
+      if (image.$value == this.profileImage) {
+        this.keyProfileImage = image.$key;
+      }
+    }
+    //console.log("keyprofileImage: " + this.userImages);
 
     this.DbApiService.removeMembersToMatch(this.match.$key, this.member, this.keyProfileImage);
     // this.DbApiService.removeMatchesToMember(this.match.$key, this.member);
