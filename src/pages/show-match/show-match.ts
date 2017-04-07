@@ -84,9 +84,12 @@ export class ShowMatchPage {
     }
     //console.log("keyprofileImage: " + this.userImages);
 
-    this.DbApiService.removeMembersToMatch(this.match.$key, this.member, this.keyProfileImage);
+    var remove = this.DbApiService.removeMembersToMatch(this.match.$key, this.member, this.keyProfileImage);
     // this.DbApiService.removeMatchesToMember(this.match.$key, this.member);
     this.joined = false;
+    if(remove){  
+      this.navCtrl.popToRoot();
+    }
   }
 
   goToGoogleMaps() {

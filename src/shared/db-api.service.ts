@@ -109,25 +109,30 @@ export class DbApiService {
     this.members.subscribe(users => {
       this.joinUsers = users;
     });
+    if(this.joinUsers[0].$value != memberId){
+      this.joinUsers.forEach(element => {
+      
+        if (element.$value == memberId) {
+          this.members.remove(element.$key);
+        } else {
+          console.log('No se ha eliminado al usuario');
+        }
+      });
+    }else{
+        this.matches.remove(matchId);
+        return true;
+    }
 
-    this.joinUsers.forEach(element => {
-      if (element.$value == memberId) {
-        console.log("SIUUUUUUUUUUUUUUUUUUUU!!");
-        this.members.remove(element.$key);
-      } else {
-        console.log('ERROR');
-      }
-    });
     this.pictures = this.af.database.list('/matches/' + matchId + '/pictures/');
     this.pictures.subscribe(images => {
       this.usersImages = images;
     });
+
     this.usersImages.forEach(element => {
       if (element.$key == keyProfileImage) {
-        console.log("SIUUUUUUUUUUUUUUUUUUUU!");
         this.pictures.remove(element.$key);
       } else {
-        console.log('ERROR');
+        console.log('No se ha eliminado la imagen del usuario');
       }
     });
   }
