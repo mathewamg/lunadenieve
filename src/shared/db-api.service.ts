@@ -27,6 +27,12 @@ export class DbApiService {
     });
   }
 
+  ionViewDidLoad() {
+    this.af.auth.subscribe(auth => {
+      console.log("login: ", auth);
+      this.auth = auth;
+    });
+  }
 
   isAuthenticated() {
     return Observable.create(observer => {
