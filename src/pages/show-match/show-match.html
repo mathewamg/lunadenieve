@@ -93,7 +93,7 @@
         </ion-col>
         <ion-col col-6 no-padding>
           <ion-col col-3 offset-3>
-            <button *ngIf="!joined" ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
+            <button *ngIf="!joined && userImages.length < 4" ion-button color="dark" class="circle-img" icon-only (click)="joinMatch()">
               <ion-icon name="add"></ion-icon>
             </button>
           </ion-col>
