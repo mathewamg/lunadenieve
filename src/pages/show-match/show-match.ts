@@ -80,7 +80,6 @@ export class ShowMatchPage {
     for (let image of this.images) {
       if (image.$value == this.profileImage) {
         this.keyProfileImage = image.$key;
-        break;
       }
     }
     //console.log("keyprofileImage: " + this.userImages);
