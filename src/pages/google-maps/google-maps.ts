@@ -86,8 +86,7 @@ export class GoogleMapsPage {
         map.moveCamera(position);
 
         let markerOptions: MarkerOptions = {
-          position: location,
-          title: this.match.place
+          position: location
         };
 
         map.addMarker(markerOptions).then((marker: Marker) => {

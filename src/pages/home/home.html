@@ -1,4 +1,4 @@
-<ion-header class="center">
+<ion-header text-center>
   <ion-navbar color="dark">
     <ion-title>{{title}}</ion-title>
     <ion-buttons end>
@@ -16,19 +16,34 @@
       <ion-card-title>
         {{match.name}}
       </ion-card-title>
-      <p>
-        {{match.level}}
-      </p>
-      <p>
-        {{match.place}}
-      </p>
-      <p>
-        {{match.time | date:'medium' }}
-      </p>
-      <p>
-        <ion-badge *ngIf="counter[k]>0" [ngClass]="{'success': counter[k]<3 ,
+      <ion-row>
+        <ion-col center>
+          <ion-note color="dark">
+            <ion-icon name="calendar"></ion-icon>
+            {{ match.time | date:'medium' }}
+          </ion-note>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-note color="dark">
+            <ion-icon name="podium"></ion-icon>
+            {{match.level}}
+          </ion-note>
+        </ion-col>
+        <ion-col>
+          <ion-note color="dark" (click)="goToGoogleMaps()">
+            <ion-icon name="pin"></ion-icon>
+            {{match.place}}
+          </ion-note>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-3 offset-9>
+          <ion-badge *ngIf="counter[k]>0" [ngClass]="{'success': counter[k]<3 ,
       'warning': counter[k]==3 , 'full': counter[k]>3}">{{counter[k]}} / 4</ion-badge>
-      </p>
+        </ion-col>
+      </ion-row>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -12,7 +12,7 @@
     <ion-card>
       <ion-card-content>
         <ion-row>
-          <ion-col center text-center>
+          <ion-col center>
             <ion-note color="dark">
               {{ match.comment }}
             </ion-note>
@@ -27,29 +27,32 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
+          <ion-col col-5>
             <ion-note color="dark">
               <ion-icon name="podium"></ion-icon>
               {{match.level}}
             </ion-note>
           </ion-col>
-          <ion-col>
-            <ion-note color="dark" (click)="goToGoogleMaps()">
+          <ion-col col-5>
+            <ion-note color="dark">
               <ion-icon name="pin"></ion-icon>
               {{match.place}}
             </ion-note>
           </ion-col>
+
           <ion-fab right>
             <button ion-fab mini><ion-icon name="arrow-dropdown-circle"></ion-icon></button>
             <ion-fab-list>
               <button *ngIf="joined" ion-fab (click)="unJoinMatch()">
-              <ion-icon name="exit"></ion-icon>
-            </button>
-              <button ion-fab>
-              <ion-icon name="share"></ion-icon>
-            </button>
+            <ion-icon name="exit"></ion-icon>
+          </button>
+              <button ion-fab (click)="goToGoogleMaps()"><ion-icon name="pin"></ion-icon></button>
+                <button ion-fab>
+            <ion-icon name="share"></ion-icon>
+          </button>
             </ion-fab-list>
           </ion-fab>
+
         </ion-row>
 
       </ion-card-content>
