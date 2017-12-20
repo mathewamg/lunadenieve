@@ -44,12 +44,15 @@
             <button ion-fab mini><ion-icon name="arrow-dropdown-circle"></ion-icon></button>
             <ion-fab-list>
               <button *ngIf="joined" ion-fab (click)="unJoinMatch()">
-            <ion-icon name="exit"></ion-icon>
-          </button>
+                <ion-icon name="exit"></ion-icon>
+              </button>
               <button ion-fab (click)="goToGoogleMaps()"><ion-icon name="pin"></ion-icon></button>
-                <button ion-fab>
-            <ion-icon name="share"></ion-icon>
-          </button>
+              <button ion-fab>
+                <ion-icon name="share"></ion-icon>
+              </button>
+              <button ion-fab (click)="comments()"> 
+                <ion-icon name="chatboxes"></ion-icon>
+              </button>
             </ion-fab-list>
           </ion-fab>
 

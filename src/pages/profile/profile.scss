@@ -1,0 +1,96 @@
+page-profile {
+    .profile-img{
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    .card-background-page {
+        
+        ion-card {
+            position: relative;
+        }
+
+        .card-width {
+            width: 100%;
+        }
+
+        .card-title {
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 8%;
+            font-size: 1.7em;
+            font-weight: bold;
+            color: #fff;
+            margin: 5%;
+            padding: 1%;
+        }
+
+        .card-subtitle {
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 0;
+            font-size: 1.0em;
+            color: #7C7C7C;
+            margin: 5%;
+            padding: 1%;
+        }
+
+        .image {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-ntracks-list {
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            left: 4%;
+            bottom: 5%;
+            width: 75px;
+            height: 75px;
+            border-radius: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 13px;
+            padding-right: 13px;
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+        }
+
+        .card-title-list {
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 13%;
+            font-size: 1.7em;
+            font-weight: bold;
+            color: #fff;
+            margin: 5%;
+            padding: 1%;
+        }
+
+        .card-subtitle-list {
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 0;
+            font-size: 1.0em;
+            color: #7C7C7C;
+            margin: 5%;
+            padding: 1%;
+        }
+
+        .card-privacy-list {
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            right: 4%;
+            bottom: 5%;
+            width: 25px;
+            height: 25px;
+            border-radius: 100%;
+            padding: 4px;
+            color: #fff;
+            text-align: center;
+        }
+
+    }
+}

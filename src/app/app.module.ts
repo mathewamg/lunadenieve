@@ -1,3 +1,5 @@
+import { ChatPage } from './../pages/chat/chat';
+import { ProfilePage } from './../pages/profile/profile';
 import { Image } from './../providers/image';
 import { LoginPage } from './../pages/login/login';
 import { AddMatchPage } from './../pages/add-match/add-match';
@@ -14,6 +16,7 @@ import { MenuPage } from "../pages/menu/menu";
 import { SearchPage } from "../pages/search/search";
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { GoogleMapsPage } from '../pages/google-maps/google-maps';
+import { IonicStorageModule } from '@ionic/storage';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDlFG0TvvPKYTZVRuF6qsDvRiHZ6IUNcLY",
@@ -39,11 +42,14 @@ export const firebaseConfig = {
     ShowMatchPage,
     SignInPage,
     LoginPage,
-    GoogleMapsPage
+    GoogleMapsPage,
+    ProfilePage,
+    ChatPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -56,7 +62,9 @@ export const firebaseConfig = {
     ShowMatchPage,
     SignInPage,
     LoginPage,
-    GoogleMapsPage
+    GoogleMapsPage,
+    ProfilePage,
+    ChatPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, DbApiService, Image, GoogleMaps]
 })

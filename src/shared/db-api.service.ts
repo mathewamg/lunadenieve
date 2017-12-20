@@ -17,6 +17,7 @@ export class DbApiService {
   usersImages;
   joined: boolean;
   matchInfo: any;
+  comments: FirebaseListObservable<any[]>;
   // userMatches: FirebaseListObservable<any[]>;
   // membersMatch;
 
@@ -345,6 +346,36 @@ export class DbApiService {
           profile_image: downloadURL
         });
       });
+  }
+
+  
+  getComments(match_id) {
+    this.comments = this.af.database.list('/comments/' + match_id);
+    return this.comments;
+  }
+
+  addComment(match_id, comment, image, name) {
+    this.comments.push({
+      user_img: image,
+      user_name: name,
+      body: comment,
+      time: new Date().getTime(),
+      user_id: this.getCurrentUser().uid
+    });
+    // this.af.database.ref('/matchs/' + match_id).once('value').then((snapshot) => {
+    //   this.af.database.list('/matchs').update(match_id, {
+    //     comments: snapshot.val().comments + 1
+    //   })
+    // })
+  }
+
+  removeComment(match_id, comment_id) {
+    this.af.database.list('/comments/' + match_id + '/' + comment_id).remove();
+    // this.af.database.ref('/matchs/' + match_id).once('value').then((snapshot) => {
+    //   this.af.database.list('/matchs').update(match_id, {
+    //     comments: snapshot.val().comments - 1
+    //   })
+    // })
   }
 
 }

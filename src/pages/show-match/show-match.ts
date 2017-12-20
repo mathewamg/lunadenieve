@@ -1,6 +1,7 @@
+import { ChatPage } from './../chat/chat';
 import { GoogleMapsPage } from './../google-maps/google-maps';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { DbApiService } from "../../shared/db-api.service";
 
 /*
@@ -25,7 +26,7 @@ export class ShowMatchPage {
   userJoined: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private DbApiService: DbApiService) {
+    private DbApiService: DbApiService, private modal: ModalController) {
     this.match = this.navParams.data;
   }
 
@@ -94,5 +95,10 @@ export class ShowMatchPage {
 
   goToGoogleMaps() {
     this.navCtrl.push(GoogleMapsPage, this.match);
+  }
+
+  comments(){
+    let modal = this.modal.create(ChatPage, { match_id: this.match.$key });
+    modal.present();
   }
 }
